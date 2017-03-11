@@ -14,7 +14,7 @@
         android:id="@+id/tv_show"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello Git!" />
+        android:text="Hello Third Change!" />
     <Button
         android:id="@+id/bt_c"
         android:text="点击"
