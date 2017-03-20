@@ -2,6 +2,7 @@ package com.example.mac_soong.weather;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -94,15 +95,21 @@ public class ChooseAreaFragment extends Fragment {
                 } else if (currentLevel == LEVEL_CTTY) {
                     selectedCity = cityList.get(position);
                     queryCounty();
+                } else if (currentLevel == LEVEL_COUNTY) {
+                    String weatherId = countyList.get(position).getWeatherId();
+                    Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                    intent.putExtra("weather_id", weatherId);
+                    startActivity(intent);
+                    getActivity().finish();
                 }
             }
         });
         bt_Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentLevel == LEVEL_CTTY){
+                if (currentLevel == LEVEL_CTTY) {
                     queryProvince();
-                }else if (currentLevel == LEVEL_COUNTY){
+                } else if (currentLevel == LEVEL_COUNTY) {
                     queryCity();
                 }
             }
@@ -208,7 +215,7 @@ public class ChooseAreaFragment extends Fragment {
                                 queryProvince();
                             } else if ("city".equals(type)) {
                                 queryCity();
-                            } else if ("county".equals(type)){
+                            } else if ("county".equals(type)) {
                                 queryCounty();
                             }
                         }

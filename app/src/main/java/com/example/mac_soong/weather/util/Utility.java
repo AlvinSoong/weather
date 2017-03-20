@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import com.example.mac_soong.weather.db.City;
 import com.example.mac_soong.weather.db.County;
 import com.example.mac_soong.weather.db.Province;
+import com.example.mac_soong.weather.gson.Weather;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,7 +15,7 @@ import org.json.JSONObject;
 
 /**
  * Created by mac_soong on 2017/3/12.
- *
+ * <p>
  * 初始化数据库 将全国各省 市 县 加入到数据库当中
  */
 
@@ -34,7 +36,6 @@ public class Utility {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
 
         }
 
@@ -80,8 +81,21 @@ public class Utility {
             }
 
         }
-
         return false;
+    }
+
+    public static Weather handleWeatherResponse(String response) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
+            String weatherContent = jsonArray.getJSONObject(0).toString();
+            return new Gson().fromJson(weatherContent, Weather.class);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
 
