@@ -1,6 +1,7 @@
 package com.example.mac_soong.weather;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.mac_soong.weather.gson.Forecast;
 import com.example.mac_soong.weather.gson.Weather;
+import com.example.mac_soong.weather.service.AutoUpdateService;
 import com.example.mac_soong.weather.util.HttpUtil;
 import com.example.mac_soong.weather.util.Utility;
 
@@ -222,6 +224,8 @@ public class WeatherActivity extends Activity {
         carWashText.setText(carWash);
         sportText.setText(sport);
         weatherLayout.setVisibility(View.VISIBLE);
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 
 }
